@@ -17,7 +17,7 @@ contract ExodusDAO is
     address public founders;
 
     modifier onlyFounders() {
-        require(msg.sender == founders, "onlyMinter: CALLER_IS_NOT_MINTER");
+        require(msg.sender == founders, "onlyFounders: CALLER_IS_NOT_FOUNDER");
         _;
     }
 
