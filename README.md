@@ -16,4 +16,4 @@ This is an [OpenZeppelin Governor](https://docs.openzeppelin.com/contracts/4.x/a
 
 ### `deploy`
 
-This task deploys the `TownToken`, `AuctionHouse` and `ExodusDAO` contracts, set the `TownToken` minter to be the `AuctionHouse`, transfers the ownership of the `AuctionHouse` to the `ExodusDAO` and finally renounces the ownership of the `TownToken`.
+This task deploys the `TownToken`, `AuctionHouse` and `ExodusDAO` contracts, transfers the `TownToken` ownership to the `AuctionHouse`, unpauses the `AuctionHouse` (this creates the first auction), and finally it transfers the ownership of the `AuctionHouse` to the `ExodusDAO`.
