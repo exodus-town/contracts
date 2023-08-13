@@ -2,7 +2,7 @@
 
 ### TownToken
 
-The $TOWN token is an ERC721 token (aka "NFT") that represents a parcel in the exodus.town world. This token can only be minted by the `minter` role, which should be set to be the `AuctionHouse` contract.
+The $TOWN token is an ERC721 token (aka "NFT") that represents a parcel in the [exodus.town](https://exodus.town) world. This token can only be minted by the `minter` role, which should be set to be the `AuctionHouse` contract.
 
 ### AuctionHouse
 
