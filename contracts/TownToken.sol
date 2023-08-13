@@ -15,7 +15,7 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
 
     address public founders;
 
-    mapping(address => bool) public minters;
+    address public minter;
 
     modifier onlyMinter() {
         require(
@@ -34,15 +34,11 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
     }
 
     function _isMinter() internal view returns (bool) {
-        return minters[msg.sender];
+        return msg.sender == minter;
     }
 
-    function addMinter(address _minter) public onlyOwner {
-        minters[_minter] = true;
-    }
-
-    function removeMinter(address _minter) public onlyOwner {
-        minters[_minter] = false;
+    function setMinter(address _minter) public onlyOwner {
+        minter = _minter;
     }
 
     function mint(address to) public onlyMinter returns (uint256) {
@@ -60,8 +56,8 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
         return tokenId;
     }
 
-    function burn(uint256 nounId) public onlyMinter {
-        _burn(nounId);
+    function burn(uint256 tokenId) public onlyMinter {
+        _burn(tokenId);
     }
 
     // The following functions are overrides required by Solidity.
