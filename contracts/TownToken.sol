@@ -41,12 +41,12 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
         minter = _minter;
     }
 
-    function mint(address to) public onlyMinter returns (uint256) {
+    function mint() public returns (uint256) {
         uint256 currentTokenId = _tokenIdCounter.current();
         if (currentTokenId <= 730 && currentTokenId % 10 == 0) {
             _mintTo(founders);
         }
-        return _mintTo(to);
+        return _mintTo(minter);
     }
 
     function _mintTo(address to) internal returns (uint256) {
