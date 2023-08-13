@@ -13,8 +13,8 @@ task("deploy", "Deploys and configures all the smart contracts")
       console.log(
         "There was no MANA token address provided, deploying a dummy one..."
       );
-      const ERC20 = await ethers.getContractFactory("ERC20");
-      const token = await ERC20.deploy("Decentraland", "MANA");
+      const DummyManaToken = await ethers.getContractFactory("DummyManaToken");
+      const token = await DummyManaToken.deploy();
       mana = await token.getAddress();
     }
 
