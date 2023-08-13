@@ -12,17 +12,15 @@ import { Pausable } from '@openzeppelin/contracts/security/Pausable.sol';
 import { ReentrancyGuard } from '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
 import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol';
-import { IAuctionHouse } from '../interfaces/IAuctionHouse.sol';
-import { ITownToken } from '../interfaces/ITownToken.sol';
+import { TownToken } from './TownToken.sol';
 
 contract AuctionHouse is
-    IAuctionHouse,
     Pausable,
     ReentrancyGuard,
     Ownable
 {
     // The TOWN token contract
-    ITownToken public town;
+    TownToken public town;
 
     // The MANA token contract
     ERC20 public mana;
@@ -40,10 +38,39 @@ contract AuctionHouse is
     uint256 public duration;
 
     // The active auction
-    IAuctionHouse.Auction public auction;
+    Auction public auction;
+
+    struct Auction {
+        // The token id
+        uint256 tokenId;
+        // The current highest bid amount
+        uint256 amount;
+        // The time that the auction started
+        uint256 startTime;
+        // The time that the auction is scheduled to end
+        uint256 endTime;
+        // The address of the current highest bid
+        address bidder;
+        // Whether or not the auction has been settled
+        bool settled;
+    }
+
+    event AuctionCreated(uint256 indexed tokenId, uint256 startTime, uint256 endTime);
+
+    event AuctionBid(uint256 indexed tokenId, address sender, uint256 value, bool extended);
+
+    event AuctionExtended(uint256 indexed tokenId, uint256 endTime);
+
+    event AuctionSettled(uint256 indexed tokenId, address winner, uint256 amount);
+
+    event AuctionTimeBufferUpdated(uint256 timeBuffer);
+
+    event AuctionReservePriceUpdated(uint256 reservePrice);
+
+    event AuctionMinBidIncrementPercentageUpdated(uint256 minBidIncrementPercentage);
 
     constructor(
-        ITownToken _town,
+        TownToken _town,
         ERC20 _mana,
         uint256 _timeBuffer,
         uint256 _reservePrice,
@@ -65,7 +92,7 @@ contract AuctionHouse is
      */
     function settleCurrentAndCreateNewAuction()
         external
-        override
+    
         nonReentrant
         whenNotPaused
     {
@@ -77,7 +104,7 @@ contract AuctionHouse is
      * @notice Settle the current auction.
      * @dev This function can only be called when the contract is paused.
      */
-    function settleAuction() external override whenPaused nonReentrant {
+    function settleAuction() external whenPaused nonReentrant {
         _settleAuction();
     }
 
@@ -86,7 +113,7 @@ contract AuctionHouse is
      * @dev This contract only accepts payment in ETH.
      */
     function createBid(uint256 _tokenId, uint256 _amount) external nonReentrant {
-        IAuctionHouse.Auction memory _auction = auction;
+        Auction memory _auction = auction;
 
         require(_auction.tokenId == _tokenId, "Token not up for auction");
         require(block.timestamp < _auction.endTime, "Auction expired");
@@ -137,7 +164,7 @@ contract AuctionHouse is
      * contract is unpaused. While no new auctions can be started when paused,
      * anyone can settle an ongoing auction.
      */
-    function pause() external override onlyOwner {
+    function pause() external onlyOwner {
         _pause();
     }
 
@@ -146,7 +173,7 @@ contract AuctionHouse is
      * @dev This function can only be called by the owner when the
      * contract is paused. If required, this function will start a new auction.
      */
-    function unpause() external override onlyOwner {
+    function unpause() external onlyOwner {
         _unpause();
 
         if (auction.startTime == 0 || auction.settled) {
@@ -158,7 +185,7 @@ contract AuctionHouse is
      * @notice Set the auction time buffer.
      * @dev Only callable by the owner.
      */
-    function setTimeBuffer(uint256 _timeBuffer) external override onlyOwner {
+    function setTimeBuffer(uint256 _timeBuffer) external onlyOwner {
         timeBuffer = _timeBuffer;
 
         emit AuctionTimeBufferUpdated(_timeBuffer);
@@ -170,7 +197,7 @@ contract AuctionHouse is
      */
     function setReservePrice(
         uint256 _reservePrice
-    ) external override onlyOwner {
+    ) external onlyOwner {
         reservePrice = _reservePrice;
 
         emit AuctionReservePriceUpdated(_reservePrice);
@@ -182,7 +209,7 @@ contract AuctionHouse is
      */
     function setMinBidIncrementPercentage(
         uint8 _minBidIncrementPercentage
-    ) external override onlyOwner {
+    ) external onlyOwner {
         minBidIncrementPercentage = _minBidIncrementPercentage;
 
         emit AuctionMinBidIncrementPercentageUpdated(
@@ -221,7 +248,7 @@ contract AuctionHouse is
      * @dev If there are no bids, the Noun is burned.
      */
     function _settleAuction() internal {
-        IAuctionHouse.Auction memory _auction = auction;
+        Auction memory _auction = auction;
 
         require(_auction.startTime != 0, "Auction hasn't begun");
         require(!_auction.settled, "Auction has already been settled");

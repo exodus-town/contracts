@@ -59,25 +59,22 @@ task("deploy", "Deploys and configures all the smart contracts")
       `ExodusDAO deployed on address ${await exodusDao.getAddress()}`
     );
 
-    const setMinter = await town.setMinter(auctionHouse.getAddress());
-    await setMinter.wait();
+    const transferTownTokenOwnership = await town.transferOwnership(
+      auctionHouse.getAddress()
+    );
+    await transferTownTokenOwnership.wait();
 
-    console.log(`AuctionHouse has been set as minter of TownToken`);
+    console.log(`TownToken ownership has been transferred to AuctionHouse`);
 
     const unpause = await auctionHouse.unpause();
     await unpause.wait();
 
     console.log(`AuctionHouse has been unpaused`);
 
-    const transferOwnership = await auctionHouse.transferOwnership(
+    const transferAuctionHouseOwnership = await auctionHouse.transferOwnership(
       exodusDao.getAddress()
     );
-    await transferOwnership.wait();
+    await transferAuctionHouseOwnership.wait();
 
     console.log(`AuctionHouse ownership has been transferred to ExodusDAO`);
-
-    const renounceOwnership = await town.renounceOwnership();
-    await renounceOwnership.wait();
-
-    console.log(`TownToken ownership has been renounced`);
   });

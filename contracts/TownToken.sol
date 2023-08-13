@@ -15,16 +15,6 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
 
     address public founders;
 
-    address public minter;
-
-    modifier onlyMinter() {
-        require(
-            _isMinter(),
-            "onlyMinter: CALLER_IS_NOT_MINTER"
-        );
-        _;
-    }
-
     constructor(address _founders) ERC721("Exodus", "TOWN") EIP712("Exodus", "1") {
         founders = _founders;
     }
@@ -33,20 +23,12 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
         return "https://exodus.town/api/token/";
     }
 
-    function _isMinter() internal view returns (bool) {
-        return msg.sender == minter;
-    }
-
-    function setMinter(address _minter) public onlyOwner {
-        minter = _minter;
-    }
-
-    function mint() public returns (uint256) {
+    function mint() public onlyOwner returns (uint256) {
         uint256 currentTokenId = _tokenIdCounter.current();
         if (currentTokenId <= 730 && currentTokenId % 10 == 0) {
             _mintTo(founders);
         }
-        return _mintTo(minter);
+        return _mintTo(owner());
     }
 
     function _mintTo(address to) internal returns (uint256) {
@@ -56,7 +38,7 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
         return tokenId;
     }
 
-    function burn(uint256 tokenId) public onlyMinter {
+    function burn(uint256 tokenId) public onlyOwner {
         _burn(tokenId);
     }
 
