@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
-import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract ExodusDAO is
     Governor,
@@ -15,7 +15,7 @@ contract ExodusDAO is
     GovernorVotes,
     GovernorVotesQuorumFraction
 {
-    IERC20 town;
+    ERC20 town;
 
     constructor(IVotes _town)
         Governor("Exodus DAO")
@@ -23,7 +23,7 @@ contract ExodusDAO is
         GovernorVotes(_town)
         GovernorVotesQuorumFraction(8)
     {
-        town = IERC20(address(_town));
+        town = ERC20(address(_town));
     }
 
     function propose(

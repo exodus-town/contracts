@@ -11,7 +11,7 @@ pragma solidity ^0.8.6;
 import { Pausable } from '@openzeppelin/contracts/security/Pausable.sol';
 import { ReentrancyGuard } from '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import { Ownable } from '@openzeppelin/contracts/access/Ownable.sol';
-import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import { ERC20 } from '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import { IAuctionHouse } from '../interfaces/IAuctionHouse.sol';
 import { ITownToken } from '../interfaces/ITownToken.sol';
 
@@ -25,7 +25,7 @@ contract AuctionHouse is
     ITownToken public town;
 
     // The MANA token contract
-    IERC20 public mana;
+    ERC20 public mana;
 
     // The minimum amount of time left in an auction after a new bid is created
     uint256 public timeBuffer;
@@ -44,7 +44,7 @@ contract AuctionHouse is
 
     constructor(
         ITownToken _town,
-        IERC20 _mana,
+        ERC20 _mana,
         uint256 _timeBuffer,
         uint256 _reservePrice,
         uint8 _minBidIncrementPercentage,

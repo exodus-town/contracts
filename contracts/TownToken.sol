@@ -30,7 +30,7 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://realm.exodus.town/token/";
+        return "https://exodus.town/api/token/";
     }
 
     function _isMinter() internal view returns (bool) {
