@@ -206,7 +206,7 @@ contract AuctionHouse is
                 amount: 0,
                 startTime: startTime,
                 endTime: endTime,
-                bidder: payable(0),
+                bidder: address(0),
                 settled: false
             });
 
