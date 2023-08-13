@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
+import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
 contract ExodusDAO is
     Governor,
@@ -14,32 +15,25 @@ contract ExodusDAO is
     GovernorVotes,
     GovernorVotesQuorumFraction
 {
-    address public founders;
+    IERC20 town;
 
-    modifier onlyFounders() {
-        require(msg.sender == founders, "onlyFounders: CALLER_IS_NOT_FOUNDER");
-        _;
-    }
-
-    constructor(
-        IVotes _town,
-        address _founders
-    )
+    constructor(IVotes _town)
         Governor("Exodus DAO")
         GovernorSettings(7200 /* 1 day */, 50400 /* 1 week */, 1)
         GovernorVotes(_town)
         GovernorVotesQuorumFraction(8)
     {
-        founders = _founders;
+        town = IERC20(address(_town));
     }
 
-    function veto(
+    function propose(
         address[] memory targets,
         uint256[] memory values,
         bytes[] memory calldatas,
-        bytes32 descriptionHash
-    ) public onlyFounders returns (uint256) {
-        return _cancel(targets, values, calldatas, descriptionHash);
+        string memory description
+    ) public virtual override returns (uint256) {
+        require(town.totalSupply() >= 100);
+        return super.propose(targets, values, calldatas, description);
     }
 
     // The following functions are overrides required by Solidity.
