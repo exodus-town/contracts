@@ -6,7 +6,7 @@ task("deploy", "Deploys and configures all the smart contracts")
     "founders",
     "The address that will receive the founders rewards"
   )
-  .setAction(async ({ mana, founders }, { ethers }) => {
+  .setAction(async ({ mana, founders }, { ethers, network }) => {
     const [deployer] = await ethers.getSigners();
 
     if (!mana) {
@@ -43,7 +43,6 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log(`TownToken deployed on address ${await town.getAddress()}`);
 
-
     console.log("Deploying AuctionHouse...");
     const timeBuffer = 300;
     const reservePrice = ethers.parseEther("100");
@@ -69,11 +68,9 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log("Deploying ExodusDAO...");
     const ExodusDAO = await ethers.getContractFactory("ExodusDAO");
-    const exodusDao = await ExodusDAO.deploy(town);
-    await exodusDao.waitForDeployment();
-    console.log(
-      `ExodusDAO deployed on address ${await exodusDao.getAddress()}`
-    );
+    const dao = await ExodusDAO.deploy(town);
+    await dao.waitForDeployment();
+    console.log(`ExodusDAO deployed on address ${await dao.getAddress()}`);
 
     console.log("Transferring TownToken ownership...");
     const transferTownTokenOwnership = await town.transferOwnership(
@@ -89,8 +86,19 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log("Transferring AuctionHouse...");
     const transferAuctionHouseOwnership = await auctionHouse.transferOwnership(
-      exodusDao.getAddress()
+      dao.getAddress()
     );
     await transferAuctionHouseOwnership.wait();
     console.log(`AuctionHouse ownership has been transferred to ExodusDAO`);
+
+    if (network.name !== "localhost") {
+      const verify = `npx hardhat verify --network ${network.name}`;
+      console.log(`\nVerify Contracts:
+
+  - ${verify} ${await town.getAddress()} ${founders}
+
+  - ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration}
+
+  - ${verify} ${await dao.getAddress()} ${await town.getAddress()}`);
+    }
   });
