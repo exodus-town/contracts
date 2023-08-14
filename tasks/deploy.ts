@@ -6,7 +6,11 @@ task("deploy", "Deploys and configures all the smart contracts")
     "founders",
     "The address that will receive the founders rewards"
   )
-  .setAction(async ({ mana, founders }, { ethers, network }) => {
+  .addOptionalParam(
+    "minSupply",
+    "The minimum supply for governance to be enabled"
+  )
+  .setAction(async ({ mana, founders, minSupply }, { ethers, network }) => {
     const [deployer] = await ethers.getSigners();
 
     if (!mana) {
@@ -30,6 +34,11 @@ task("deploy", "Deploys and configures all the smart contracts")
         "There was no founders address provided, using deployer instead"
       );
       founders = await deployer.getAddress();
+    }
+
+    if (!minSupply) {
+      console.log("There was no minSupply provided, using default value of 3");
+      minSupply = 3;
     }
 
     console.log(`Using deployer ${await deployer.getAddress()}`);
@@ -68,7 +77,7 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log("Deploying ExodusDAO...");
     const ExodusDAO = await ethers.getContractFactory("ExodusDAO");
-    const dao = await ExodusDAO.deploy(town);
+    const dao = await ExodusDAO.deploy(town, minSupply);
     await dao.waitForDeployment();
     console.log(`ExodusDAO deployed on address ${await dao.getAddress()}`);
 
@@ -90,6 +99,15 @@ task("deploy", "Deploys and configures all the smart contracts")
     );
     await transferAuctionHouseOwnership.wait();
     console.log(`AuctionHouse ownership has been transferred to ExodusDAO`);
+
+    console.log(`\nContract Addresses:
+    
+    - TownToken: ${await town.getAddress()}
+
+    - AuctionHouse: ${await auctionHouse.getAddress()}
+
+    - ExodusDAO: ${await dao.getAddress()}
+    `);
 
     if (network.name !== "localhost") {
       const verify = `npx hardhat verify --network ${network.name}`;

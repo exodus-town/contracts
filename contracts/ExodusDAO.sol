@@ -16,14 +16,16 @@ contract ExodusDAO is
     GovernorVotesQuorumFraction
 {
     TownToken town;
+    uint256 minSupply;
 
-    constructor(TownToken _town)
+    constructor(TownToken _town, uint256 _minSupply)
         Governor("Exodus DAO")
         GovernorSettings(1 days, 1 weeks, 1)
         GovernorVotes(_town)
         GovernorVotesQuorumFraction(8)
     {
         town = _town;
+        minSupply = _minSupply;
     }
 
     function propose(
@@ -32,7 +34,7 @@ contract ExodusDAO is
         bytes[] memory calldatas,
         string memory description
     ) public virtual override returns (uint256) {
-        require(town.totalSupply() >= 100, 'Governance disabled until total supply of $TOWN reaches 100 holders');
+        require(town.totalSupply() >= minSupply, 'Proposals disabled until the amount of token holders reach the minimum supply for governance');
         return super.propose(targets, values, calldatas, description);
     }
 
