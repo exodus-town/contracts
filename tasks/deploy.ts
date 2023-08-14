@@ -43,11 +43,16 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log(`TownToken deployed on address ${await town.getAddress()}`);
 
+
+    console.log("Deploying AuctionHouse...");
     const timeBuffer = 300;
     const reservePrice = ethers.parseEther("100");
     const minBidIncrementPercentage = 2;
     const duration = 86400;
-    console.log("Deploying AuctionHouse...");
+    console.log("timeBuffer", timeBuffer);
+    console.log("reservePrice", reservePrice);
+    console.log("minBidIncrementPercentage", minBidIncrementPercentage);
+    console.log("duration", duration);
     const AuctionHouse = await ethers.getContractFactory("AuctionHouse");
     const auctionHouse = await AuctionHouse.deploy(
       await town.getAddress(),

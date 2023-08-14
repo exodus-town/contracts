@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "scripts": {
+    "deploy:testnet": "hardhat deploy --network mumbai --mana 0x882da5967c435ea5cc6b09150d55e8304b838f45",
     "deploy:local": "hardhat deploy --network localhost",
     "node": "hardhat node"
   },
@@ -14,6 +15,7 @@
     "hardhat": "^2.17.1"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3"
+    "@openzeppelin/contracts": "^4.9.3",
+    "dotenv": "^16.3.1"
   }
 }

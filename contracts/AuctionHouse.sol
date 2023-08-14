@@ -6,7 +6,7 @@
 //
 // NounsAuctionHouse.sol source code Copyright Nouns DAO licensed under the GPL-3.0 license.
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 import { Pausable } from '@openzeppelin/contracts/security/Pausable.sol';
 import { ReentrancyGuard } from '@openzeppelin/contracts/security/ReentrancyGuard.sol';

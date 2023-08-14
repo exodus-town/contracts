@@ -17,3 +17,11 @@ This is an [OpenZeppelin Governor](https://docs.openzeppelin.com/contracts/4.x/a
 ### `deploy`
 
 This task deploys the `TownToken`, `AuctionHouse` and `ExodusDAO` contracts, transfers the `TownToken` ownership to the `AuctionHouse`, unpauses the `AuctionHouse` (this creates the first auction), and finally it transfers the ownership of the `AuctionHouse` to the `ExodusDAO`.
+
+## Contracts
+
+**Mumbai**
+- `ManaToken` - [0x882Da5967c435eA5cC6b09150d55E8304B838f45](https://mumbai.polygonscan.com/address/0x882Da5967c435eA5cC6b09150d55E8304B838f45)
+- `TownToken` - [0x0Df293A47A849A41C772aFf20592deC601367ea4](https://mumbai.polygonscan.com/address/0x0Df293A47A849A41C772aFf20592deC601367ea4)
+- `AuctionHouse` - [0x17Da65D02F2F85B1805f5EBB508b1C3BDEf7D4e2](https://mumbai.polygonscan.com/address/0x17Da65D02F2F85B1805f5EBB508b1C3BDEf7D4e2)
+- `ExodusDAO` - [0xaAC098F521bCCBc8c97067d84806b657bE54d0f3](https://mumbai.polygonscan.com/address/0xaAC098F521bCCBc8c97067d84806b657bE54d0f3)
