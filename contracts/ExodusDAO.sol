@@ -19,7 +19,7 @@ contract ExodusDAO is
 
     constructor(IVotes _town)
         Governor("Exodus DAO")
-        GovernorSettings(7200 /* 1 day */, 50400 /* 1 week */, 1)
+        GovernorSettings(1 days, 1 weeks, 1)
         GovernorVotes(_town)
         GovernorVotesQuorumFraction(8)
     {
