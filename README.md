@@ -22,6 +22,6 @@ This task deploys the `TownToken`, `AuctionHouse` and `ExodusDAO` contracts, tra
 
 **Mumbai**
 - `ManaToken` - [0x882Da5967c435eA5cC6b09150d55E8304B838f45](https://mumbai.polygonscan.com/address/0x882Da5967c435eA5cC6b09150d55E8304B838f45)
-- `TownToken` - [0x1842AF19f2c655cC90a1E6d66702CA49307363d0](https://mumbai.polygonscan.com/address/0x1842AF19f2c655cC90a1E6d66702CA49307363d0)
-- `AuctionHouse` - [0x235cb6f37563Fc9f0810496CacA1b28DDe35af22](https://mumbai.polygonscan.com/address/0x235cb6f37563Fc9f0810496CacA1b28DDe35af22)
-- `ExodusDAO` - [0x4d8F514EC0Dd701bd677202343c0df0648e076F6](https://mumbai.polygonscan.com/address/0x4d8F514EC0Dd701bd677202343c0df0648e076F6)
+- `TownToken` - [0xaE5b33d05A4b7c5Ba0688022615508e280FBdd44](https://mumbai.polygonscan.com/address/0xaE5b33d05A4b7c5Ba0688022615508e280FBdd44)
+- `AuctionHouse` - [0xd4B76bF0B2a5a31A6c17D415d15fFf51EDc09a29](https://mumbai.polygonscan.com/address/0xd4B76bF0B2a5a31A6c17D415d15fFf51EDc09a29)
+- `ExodusDAO` - [0xeEe3B4B3A1F3c0d91CaE25084BDe6cC26926aFbd](https://mumbai.polygonscan.com/address/0xeEe3B4B3A1F3c0d91CaE25084BDe6cC26926aFbd)
