@@ -113,10 +113,6 @@ task("deploy", "Deploys and configures all the smart contracts")
       const verify = `npx hardhat verify --network ${network.name}`;
       console.log(`\nVerify Contracts:
 
-  - ${verify} ${await town.getAddress()} ${founders}
-
-  - ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration}
-
-  - ${verify} ${await dao.getAddress()} ${await town.getAddress()}`);
+${verify} ${await town.getAddress()} ${founders} && ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration} && ${verify} ${await dao.getAddress()} ${await town.getAddress()} ${minSupply}`);
     }
   });
