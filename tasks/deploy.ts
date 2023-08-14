@@ -11,11 +11,18 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     if (!mana) {
       console.log(
-        "There was no MANA token address provided, deploying a dummy one..."
+        "There was no MANA token address provided, a dummy one will be deployed and used instead"
       );
+
+      console.log("Deploying DummyManaToken...");
       const DummyManaToken = await ethers.getContractFactory("DummyManaToken");
-      const token = await DummyManaToken.deploy();
-      mana = await token.getAddress();
+      const dummy = await DummyManaToken.deploy();
+      await dummy.waitForDeployment();
+      console.log(
+        `DummyManaToken deployed on address ${await dummy.getAddress()}`
+      );
+
+      mana = await dummy.getAddress();
     }
 
     if (!founders) {
@@ -29,8 +36,10 @@ task("deploy", "Deploys and configures all the smart contracts")
     console.log(`Using MANA token ${mana}`);
     console.log(`Using founders ${founders}`);
 
+    console.log("Deploying TownToken...");
     const TownToken = await ethers.getContractFactory("TownToken");
     const town = await TownToken.deploy(founders);
+    await town.waitForDeployment();
 
     console.log(`TownToken deployed on address ${await town.getAddress()}`);
 
@@ -38,6 +47,7 @@ task("deploy", "Deploys and configures all the smart contracts")
     const reservePrice = ethers.parseEther("100");
     const minBidIncrementPercentage = 2;
     const duration = 86400;
+    console.log("Deploying AuctionHouse...");
     const AuctionHouse = await ethers.getContractFactory("AuctionHouse");
     const auctionHouse = await AuctionHouse.deploy(
       await town.getAddress(),
@@ -47,34 +57,35 @@ task("deploy", "Deploys and configures all the smart contracts")
       minBidIncrementPercentage,
       duration
     );
-
+    await auctionHouse.waitForDeployment();
     console.log(
       `AuctionHouse deployed on address ${await auctionHouse.getAddress()}`
     );
 
+    console.log("Deploying ExodusDAO...");
     const ExodusDAO = await ethers.getContractFactory("ExodusDAO");
     const exodusDao = await ExodusDAO.deploy(town);
-
+    await exodusDao.waitForDeployment();
     console.log(
       `ExodusDAO deployed on address ${await exodusDao.getAddress()}`
     );
 
+    console.log("Transferring TownToken ownership...");
     const transferTownTokenOwnership = await town.transferOwnership(
       auctionHouse.getAddress()
     );
     await transferTownTokenOwnership.wait();
-
     console.log(`TownToken ownership has been transferred to AuctionHouse`);
 
+    console.log("Unpausing AuctionHouse...");
     const unpause = await auctionHouse.unpause();
     await unpause.wait();
-
     console.log(`AuctionHouse has been unpaused`);
 
+    console.log("Transferring AuctionHouse...");
     const transferAuctionHouseOwnership = await auctionHouse.transferOwnership(
       exodusDao.getAddress()
     );
     await transferAuctionHouseOwnership.wait();
-
     console.log(`AuctionHouse ownership has been transferred to ExodusDAO`);
   });

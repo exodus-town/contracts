@@ -32,7 +32,7 @@ contract ExodusDAO is
         bytes[] memory calldatas,
         string memory description
     ) public virtual override returns (uint256) {
-        require(town.totalSupply() >= 100);
+        require(town.totalSupply() >= 100, 'Supply too small');
         return super.propose(targets, values, calldatas, description);
     }
 

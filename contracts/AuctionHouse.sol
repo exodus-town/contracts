@@ -88,11 +88,10 @@ contract AuctionHouse is
     }
 
     /**
-     * @notice Settle the current auction, mint a new Noun, and put it up for auction.
+     * @notice Settle the current auction, mint a new token, and put it up for auction.
      */
     function settleCurrentAndCreateNewAuction()
         external
-    
         nonReentrant
         whenNotPaused
     {
@@ -109,7 +108,7 @@ contract AuctionHouse is
     }
 
     /**
-     * @notice Create a bid for a Noun, with a given amount.
+     * @notice Create a bid for a token, with a given amount.
      * @dev This contract only accepts payment in ETH.
      */
     function createBid(uint256 _tokenId, uint256 _amount) external nonReentrant {
@@ -220,27 +219,22 @@ contract AuctionHouse is
     /**
      * @notice Create an auction.
      * @dev Store the auction details in the `auction` state variable and emit an AuctionCreated event.
-     * If the mint reverts, the minter was updated without pausing this contract first. To remedy this,
-     * catch the revert and pause this contract.
      */
     function _createAuction() internal {
-        try town.mint() returns (uint256 tokenId) {
-            uint256 startTime = block.timestamp;
-            uint256 endTime = startTime + duration;
+        uint256 tokenId = town.mint();
+        uint256 startTime = block.timestamp;
+        uint256 endTime = startTime + duration;
 
-            auction = Auction({
-                tokenId: tokenId,
-                amount: 0,
-                startTime: startTime,
-                endTime: endTime,
-                bidder: address(0),
-                settled: false
-            });
+        auction = Auction({
+            tokenId: tokenId,
+            amount: 0,
+            startTime: startTime,
+            endTime: endTime,
+            bidder: address(0),
+            settled: false
+        });
 
-            emit AuctionCreated(tokenId, startTime, endTime);
-        } catch Error(string memory) {
-            _pause();
-        }
+        emit AuctionCreated(tokenId, startTime, endTime);
     }
 
     /**
