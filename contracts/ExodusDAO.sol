@@ -59,14 +59,14 @@ contract ExodusDAO is
     }
 
     function quorum(
-        uint256 blockNumber
+        uint256 timestamp
     )
         public
         view
         override(IGovernor, GovernorVotesQuorumFraction)
         returns (uint256)
     {
-        return super.quorum(blockNumber);
+        return super.quorum(timestamp);
     }
 
     function proposalThreshold()
