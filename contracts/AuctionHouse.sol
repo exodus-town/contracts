@@ -63,6 +63,8 @@ contract AuctionHouse is
 
     event AuctionSettled(uint256 indexed tokenId, address winner, uint256 amount);
 
+    event AuctionReset(uint256 indexed tokenId, uint256 startTime, uint256 endTime);
+
     event AuctionTimeBufferUpdated(uint256 timeBuffer);
 
     event AuctionReservePriceUpdated(uint256 reservePrice);
@@ -238,8 +240,29 @@ contract AuctionHouse is
     }
 
     /**
+     * @notice Reset auction.
+     * @dev Reset the current `auction` state variable and emit an AuctionReset event.
+     */
+    function _resetAuction() internal {
+        uint256 tokenId = auction.tokenId;
+        uint256 startTime = block.timestamp;
+        uint256 endTime = startTime + duration;
+
+        auction = Auction({
+            tokenId: tokenId,
+            amount: 0,
+            startTime: startTime,
+            endTime: endTime,
+            bidder: address(0),
+            settled: false
+        });
+
+        emit AuctionReset(tokenId, startTime, endTime);
+    }
+
+    /**
      * @notice Settle an auction, finalizing the bid and paying out to the owner.
-     * @dev If there are no bids, the Noun is burned.
+     * @dev If there are no bids, the auction is reset.
      */
     function _settleAuction() internal {
         Auction memory _auction = auction;
@@ -251,22 +274,30 @@ contract AuctionHouse is
             "Auction hasn't completed"
         );
 
-        auction.settled = true;
+        // if auction has bids
+        if (_auction.bidder != address(0)) {
 
-        if (_auction.bidder == address(0)) {
-            town.burn(_auction.tokenId);
-        } else {
+            // settle auction
+            auction.settled = true;
+
+            // transfer token to winner
             town.transferFrom(
                 address(this),
                 _auction.bidder,
                 _auction.tokenId
             );
-        }
 
-        if (_auction.amount > 0) {
-            mana.transfer(owner(), _auction.amount);
-        }
+            // transfer proceeds to owner
+            if (_auction.amount > 0) {
+                mana.transfer(owner(), _auction.amount);
+            }
 
-        emit AuctionSettled(_auction.tokenId, _auction.bidder, _auction.amount);
+            // emit event
+            emit AuctionSettled(_auction.tokenId, _auction.bidder, _auction.amount);
+
+        } else if (!paused()) {
+            // if auction had no bids and auction house is not paused, reset the auction
+            _resetAuction();
+        }
     }
 }

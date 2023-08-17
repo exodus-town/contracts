@@ -38,10 +38,6 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
         return tokenId;
     }
 
-    function burn(uint256 tokenId) public onlyOwner {
-        _burn(tokenId);
-    }
-
     // The following functions are overrides required by Solidity.
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
