@@ -98,7 +98,11 @@ contract AuctionHouse is
         whenNotPaused
     {
         _settleAuction();
-        _createAuction();
+        if (auction.settled) {
+            _createAuction();
+        } else {
+            _resetAuction();
+        }
     }
 
     /**
@@ -294,10 +298,6 @@ contract AuctionHouse is
 
             // emit event
             emit AuctionSettled(_auction.tokenId, _auction.bidder, _auction.amount);
-
-        } else if (!paused()) {
-            // if auction had no bids and auction house is not paused, reset the auction
-            _resetAuction();
         }
     }
 }
