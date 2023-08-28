@@ -8,7 +8,6 @@ typechain-types
 # Hardhat files
 cache
 artifacts
-dist
-abi
+main.ts
 
 .DS_Store

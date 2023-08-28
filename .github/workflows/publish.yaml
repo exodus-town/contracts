@@ -19,8 +19,8 @@ jobs:
           node-version: 16.x
       - name: Install
         run: npm ci
-      - name: Package
-        run: npm run package
+      - name: Generate
+        run: npm run generate
       - name: Publish
         uses: menduz/oddish-action@master
         with:

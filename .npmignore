@@ -8,10 +8,13 @@ typechain-types
 # Hardhat files
 cache
 artifacts
+contracts
 
+.github
 .DS_Store
 .env.example
 tasks
 hardhat.config.ts
 README.md
 tsconfig.json
+wagmi.config.json
