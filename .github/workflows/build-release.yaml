@@ -1,0 +1,29 @@
+name: Build and release
+
+on:
+  push:
+    branches:
+      - master
+  release:
+    types:
+      - created
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Install
+        run: npm ci
+      - name: Package
+        run: npm run pacakge
+      - name: Publish
+        uses: menduz/oddish-action@master
+        with:
+          access: public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

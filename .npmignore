@@ -8,7 +8,10 @@ typechain-types
 # Hardhat files
 cache
 artifacts
-dist
-abi
 
 .DS_Store
+.env.example
+tasks
+hardhat.config.ts
+README.md
+tsconfig.json

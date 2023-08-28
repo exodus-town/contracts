@@ -2,7 +2,10 @@
   "name": "@exodus.town/contracts",
   "version": "0.1.0",
   "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
+    "package": "hardhat compile && hardhat package && tsc --project tsconfig.package.json",
     "deploy:testnet": "hardhat compile && hardhat deploy --network mumbai --mana 0x882da5967c435ea5cc6b09150d55e8304b838f45",
     "deploy:local": "hardhat compile && hardhat deploy --network localhost",
     "node": "hardhat node"
@@ -16,6 +19,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.3",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "rimraf": "^5.0.1"
   }
 }
