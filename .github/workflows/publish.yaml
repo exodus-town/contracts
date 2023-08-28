@@ -1,4 +1,4 @@
-name: Build and release
+name: NPM
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - created
 
 jobs:
-  build-release:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -20,7 +20,7 @@ jobs:
       - name: Install
         run: npm ci
       - name: Package
-        run: npm run pacakge
+        run: npm run package
       - name: Publish
         uses: menduz/oddish-action@master
         with:
