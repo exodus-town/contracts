@@ -6,6 +6,14 @@ import "./tasks/package";
 import dotenv from "dotenv";
 dotenv.config();
 
+function getRandomPrivateKey() {
+  let pk = "";
+  for (let i = 0; i < 64; i++) {
+    pk += Math.floor(Math.random() * 16).toString(16);
+  }
+  return pk;
+}
+
 const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.19",
@@ -22,7 +30,7 @@ const config: HardhatUserConfig = {
     },
     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [process.env.PRIVATE_KEY!],
+      accounts: [process.env.PRIVATE_KEY || getRandomPrivateKey()],
     },
   },
   etherscan: {
