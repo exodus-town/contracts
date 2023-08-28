@@ -18,6 +18,10 @@ This is an [OpenZeppelin Governor](https://docs.openzeppelin.com/contracts/4.x/a
 
 This task deploys the `TownToken`, `AuctionHouse` and `ExodusDAO` contracts, transfers the `TownToken` ownership to the `AuctionHouse`, unpauses the `AuctionHouse` (this creates the first auction), and finally it transfers the ownership of the `AuctionHouse` to the `ExodusDAO`.
 
+### `package`
+
+This task builds the npm package with the typings and the ABIs so they can be used elsewhere. It is used by the CI to publish a `@next` version on every commit and a `@latest` version on every release.
+
 ## Contracts
 
 **Mumbai**
