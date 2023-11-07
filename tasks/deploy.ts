@@ -42,7 +42,7 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log("Deploying AuctionHouse...");
     const timeBuffer = 300;
-    const reservePrice = ethers.parseEther("100");
+    const reservePrice = ethers.parseEther("10");
     const minBidIncrementPercentage = 2;
     const duration = 86400;
     console.log("timeBuffer", timeBuffer);
