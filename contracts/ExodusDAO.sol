@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
-import { TownToken } from './TownToken.sol';
+import {TownToken} from "./TownToken.sol";
 
 contract ExodusDAO is
     Governor,
@@ -18,7 +18,10 @@ contract ExodusDAO is
     TownToken town;
     uint256 minSupply;
 
-    constructor(TownToken _town, uint256 _minSupply)
+    constructor(
+        TownToken _town,
+        uint256 _minSupply
+    )
         Governor("Exodus DAO")
         GovernorSettings(43200 /* 1 day */, 302400 /* 1 week */, 1)
         GovernorVotes(_town)
@@ -34,7 +37,10 @@ contract ExodusDAO is
         bytes[] memory calldatas,
         string memory description
     ) public virtual override returns (uint256) {
-        require(town.totalSupply() >= minSupply, 'Proposals are disabled until the amount of token holders reaches the minimum supply for governance');
+        require(
+            town.totalSupply() >= minSupply,
+            "Proposals are disabled until the amount of tokens reaches the threshold for governance to be enabled"
+        );
         return super.propose(targets, values, calldatas, description);
     }
 

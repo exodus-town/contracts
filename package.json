@@ -5,6 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "generate": "wagmi generate",
+    "deploy:mainnet": "hardhat compile && hardhat deploy --network polygon --mana 0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4 --threshold 100",
     "deploy:testnet": "hardhat compile && hardhat deploy --network mumbai --mana 0x882da5967c435ea5cc6b09150d55e8304b838f45",
     "deploy:local": "hardhat compile && hardhat deploy --network localhost",
     "node": "hardhat node"

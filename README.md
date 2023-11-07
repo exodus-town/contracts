@@ -29,6 +29,13 @@ This rite assembles the npm package, a tome containing both the arcane typings a
 **Mumbai**
 
 - `ManaToken` - [0x882Da5967c435eA5cC6b09150d55E8304B838f45](https://mumbai.polygonscan.com/address/0x882Da5967c435eA5cC6b09150d55E8304B838f45)
-- `TownToken` - [0xF11e2D92E12359de0e4A17393CaF01635F3eE6aF](https://mumbai.polygonscan.com/address/0xF11e2D92E12359de0e4A17393CaF01635F3eE6aF)
-- `AuctionHouse` - [0xBC6A128fAD5e76af462aC123461EAfD0F9229d88](https://mumbai.polygonscan.com/address/0xBC6A128fAD5e76af462aC123461EAfD0F9229d88)
-- `ExodusDAO` - [0x3b0C4AE3AcEB3C45c8cAB1328Ac38879F34f96C0](https://mumbai.polygonscan.com/address/0x3b0C4AE3AcEB3C45c8cAB1328Ac38879F34f96C0)
+- `TownToken` - [0x7a25a3b930D7AAeFA7a3E01DbCCb83311A6854ab](https://mumbai.polygonscan.com/address/0x7a25a3b930D7AAeFA7a3E01DbCCb83311A6854ab)
+- `AuctionHouse` - [0x39eF9554d9014d31a5DC8aaDb98EA09896Ca62Af](https://mumbai.polygonscan.com/address/0x39eF9554d9014d31a5DC8aaDb98EA09896Ca62Af)
+- `ExodusDAO` - [0x61275A72E1298051487B28cd428c9314fe3E5001](https://mumbai.polygonscan.com/address/0x61275A72E1298051487B28cd428c9314fe3E5001)
+
+**Polygon**
+
+- `ManaToken` - [0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4](https://polygonscan.com/address/0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4)
+- `TownToken` - [0xAE38E6d941Fb364c142CC90df285CEEF85713467](https://polygonscan.com/address/0xAE38E6d941Fb364c142CC90df285CEEF85713467)
+- `AuctionHouse` - [0x0Ff58e235b154dd7785C4829D48948CE114248C4](https://polygonscan.com/address/0x0Ff58e235b154dd7785C4829D48948CE114248C4)
+- `ExodusDAO` - [0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923](https://polygonscan.com/address/0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923)

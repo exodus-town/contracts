@@ -28,12 +28,17 @@ const config: HardhatUserConfig = {
       chainId: 1337,
     },
     mumbai: {
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`,
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY_TESTNET}`,
+      accounts: [process.env.PRIVATE_KEY || getRandomPrivateKey()],
+    },
+    polygon: {
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`,
       accounts: [process.env.PRIVATE_KEY || getRandomPrivateKey()],
     },
   },
   etherscan: {
     apiKey: {
+      polygon: process.env.POLYGONSCAN_KEY!,
       polygonMumbai: process.env.POLYGONSCAN_KEY!,
     },
     customChains: [
@@ -43,6 +48,14 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api-testnet.polygonscan.com/api",
           browserURL: "https://mumbai.polygonscan.com",
+        },
+      },
+      {
+        network: "polygon",
+        chainId: 137,
+        urls: {
+          apiURL: "https://api.polygonscan.com/api",
+          browserURL: "https://polygonscan.com",
         },
       },
     ],

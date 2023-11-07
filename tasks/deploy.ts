@@ -3,10 +3,10 @@ import { task } from "hardhat/config";
 task("deploy", "Deploys and configures all the smart contracts")
   .addOptionalParam("mana", "The address of the MANA token")
   .addOptionalParam(
-    "minSupply",
+    "threshold",
     "The minimum supply for governance to be enabled"
   )
-  .setAction(async ({ mana, minSupply }, { ethers, network }) => {
+  .setAction(async ({ mana, threshold }, { ethers, network }) => {
     const [deployer] = await ethers.getSigners();
 
     if (!mana) {
@@ -25,9 +25,9 @@ task("deploy", "Deploys and configures all the smart contracts")
       mana = await dummy.getAddress();
     }
 
-    if (!minSupply) {
+    if (!threshold) {
       console.log("There was no minSupply provided, using default value of 3");
-      minSupply = 3;
+      threshold = 3;
     }
 
     console.log(`Using deployer ${await deployer.getAddress()}`);
@@ -64,8 +64,9 @@ task("deploy", "Deploys and configures all the smart contracts")
     );
 
     console.log("Deploying ExodusDAO...");
+    console.log(`Proposals disabled until totalSupply >= ${threshold}`);
     const ExodusDAO = await ethers.getContractFactory("ExodusDAO");
-    const dao = await ExodusDAO.deploy(town, minSupply);
+    const dao = await ExodusDAO.deploy(town, threshold);
     await dao.waitForDeployment();
     console.log(`ExodusDAO deployed on address ${await dao.getAddress()}`);
 
@@ -101,6 +102,6 @@ task("deploy", "Deploys and configures all the smart contracts")
       const verify = `npx hardhat verify --network ${network.name}`;
       console.log(`\nVerify Contracts:
 
-${verify} ${await town.getAddress()} && ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration} && ${verify} ${await dao.getAddress()} ${await town.getAddress()} ${minSupply}`);
+${verify} ${await town.getAddress()} && ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration} && ${verify} ${await dao.getAddress()} ${await town.getAddress()} ${threshold}`);
     }
   });
