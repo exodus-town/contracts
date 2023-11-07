@@ -13,21 +13,13 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
 
     Counters.Counter private _tokenIdCounter;
 
-    address public founders;
-
-    constructor(address _founders) ERC721("Exodus", "TOWN") EIP712("Exodus", "1") {
-        founders = _founders;
-    }
+    constructor() ERC721("Exodus", "TOWN") EIP712("Exodus", "1") {}
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://exodus.town/api/token/";
     }
 
     function mint() public onlyOwner returns (uint256) {
-        uint256 currentTokenId = _tokenIdCounter.current();
-        if (currentTokenId <= 730 && currentTokenId % 10 == 0) {
-            _mintTo(founders);
-        }
         return _mintTo(owner());
     }
 
@@ -40,26 +32,27 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
 
     // The following functions are overrides required by Solidity.
 
-    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
-        internal
-        override(ERC721, ERC721Enumerable)
-    {
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 batchSize
+    ) internal override(ERC721, ERC721Enumerable) {
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
 
-    function _afterTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
-        internal
-        override(ERC721, ERC721Votes)
-    {
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        uint256 batchSize
+    ) internal override(ERC721, ERC721Votes) {
         super._afterTokenTransfer(from, to, tokenId, batchSize);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721Enumerable)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721, ERC721Enumerable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

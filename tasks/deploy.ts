@@ -3,14 +3,10 @@ import { task } from "hardhat/config";
 task("deploy", "Deploys and configures all the smart contracts")
   .addOptionalParam("mana", "The address of the MANA token")
   .addOptionalParam(
-    "founders",
-    "The address that will receive the founders rewards"
-  )
-  .addOptionalParam(
     "minSupply",
     "The minimum supply for governance to be enabled"
   )
-  .setAction(async ({ mana, founders, minSupply }, { ethers, network }) => {
+  .setAction(async ({ mana, minSupply }, { ethers, network }) => {
     const [deployer] = await ethers.getSigners();
 
     if (!mana) {
@@ -29,13 +25,6 @@ task("deploy", "Deploys and configures all the smart contracts")
       mana = await dummy.getAddress();
     }
 
-    if (!founders) {
-      console.log(
-        "There was no founders address provided, using deployer instead"
-      );
-      founders = await deployer.getAddress();
-    }
-
     if (!minSupply) {
       console.log("There was no minSupply provided, using default value of 3");
       minSupply = 3;
@@ -43,11 +32,10 @@ task("deploy", "Deploys and configures all the smart contracts")
 
     console.log(`Using deployer ${await deployer.getAddress()}`);
     console.log(`Using MANA token ${mana}`);
-    console.log(`Using founders ${founders}`);
 
     console.log("Deploying TownToken...");
     const TownToken = await ethers.getContractFactory("TownToken");
-    const town = await TownToken.deploy(founders);
+    const town = await TownToken.deploy();
     await town.waitForDeployment();
 
     console.log(`TownToken deployed on address ${await town.getAddress()}`);
@@ -113,6 +101,6 @@ task("deploy", "Deploys and configures all the smart contracts")
       const verify = `npx hardhat verify --network ${network.name}`;
       console.log(`\nVerify Contracts:
 
-${verify} ${await town.getAddress()} ${founders} && ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration} && ${verify} ${await dao.getAddress()} ${await town.getAddress()} ${minSupply}`);
+${verify} ${await town.getAddress()} && ${verify} ${await auctionHouse.getAddress()} ${await town.getAddress()} ${mana} ${timeBuffer} ${reservePrice} ${minBidIncrementPercentage} ${duration} && ${verify} ${await dao.getAddress()} ${await town.getAddress()} ${minSupply}`);
     }
   });
