@@ -16,7 +16,7 @@ contract TownToken is ERC721, ERC721Enumerable, Ownable, EIP712, ERC721Votes {
     constructor() ERC721("Exodus", "TOWN") EIP712("Exodus", "1") {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://exodus.town/api/token/";
+        return "https://exodus.town/api/tokens/";
     }
 
     function mint() public onlyOwner returns (uint256) {
