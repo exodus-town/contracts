@@ -39,5 +39,3 @@ This rite assembles the npm package, a tome containing both the arcane typings a
 - `TownToken` - [0xAE38E6d941Fb364c142CC90df285CEEF85713467](https://polygonscan.com/address/0xAE38E6d941Fb364c142CC90df285CEEF85713467)
 - `AuctionHouse` - [0x0Ff58e235b154dd7785C4829D48948CE114248C4](https://polygonscan.com/address/0x0Ff58e235b154dd7785C4829D48948CE114248C4)
 - `ExodusDAO` - [0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923](https://polygonscan.com/address/0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923)
-
-.
