@@ -20,6 +20,10 @@ The ExodusDAO stands as an [OpenZeppelin Governor](https://docs.openzeppelin.com
 
 This sacred incantation deploys the pillars of our society: `TownToken`, `AuctionHouse`, and `ExodusDAO`. It weaves a spell that transfers the ownership of `TownToken` to the `AuctionHouse`, unpauses the `AuctionHouse` to unleash its power to create the genesis auction, and finally it anoints the `ExodusDAO` as the owner and ultimate guardian of the `AuctionHouse`.
 
+### `restart`
+
+This task is akin to turning the page to a new chapter in the epic of Exodus Town. When the sun sets on the current auction and the last bid has been cast, this mystical command ushers in the dawn of a new day. It conjures the next daily auction, ensuring that the spiral of opportunity and adventure within Exodus Town continues unbroken.
+
 ### `package`
 
 This rite assembles the npm package, a tome containing both the arcane typings and the ABIs, allowing the magic to be invoked in distant lands. Our CI spirits dutifully craft a `@next` version with every new moon and a `@latest` version with each solar eclipse.
