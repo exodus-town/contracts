@@ -10,7 +10,7 @@
     "deploy:local": "hardhat compile && hardhat deploy --network localhost",
     "deploy": "npm run deploy:mainnet",
     "node": "hardhat node",
-    "restart:mainnet": "hardhat compile && hardhat restart --network mumbai --address 0x0Ff58e235b154dd7785C4829D48948CE114248C4",
+    "restart:mainnet": "hardhat compile && hardhat restart --network polygon --address 0x0Ff58e235b154dd7785C4829D48948CE114248C4",
     "restart:testnet": "hardhat compile && hardhat restart --network mumbai --address 0x39eF9554d9014d31a5DC8aaDb98EA09896Ca62Af",
     "restart": "npm run restart:mainnet"
   },
