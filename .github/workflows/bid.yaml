@@ -1,4 +1,4 @@
-name: restart-auction
+name: bid
 
 on:
   schedule:
