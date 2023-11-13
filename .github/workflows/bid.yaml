@@ -1,0 +1,24 @@
+name: restart-auction
+
+on:
+  schedule:
+    - cron: "0 18 * * *"
+
+jobs:
+  restart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 16.x
+      - name: Install
+        run: npm ci
+      - name: Bid
+        run: npm run bid
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          ALCHEMY_KEY: ${{ secrets.ALCHEMY_KEY }}
+          POLYGONSCAN_KEY: ${{ secrets.POLYGONSCAN_KEY }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
