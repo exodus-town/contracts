@@ -56,20 +56,21 @@ task("bid", "Makes a bid on the current auction")
               Number(ethers.formatEther(auction.amount + minIncrement))
             ).toString()
           );
-    console.log(`Minumim bid:`, ethers.formatEther(minBid));
+    console.log(`Minumim bid: ${+ethers.formatEther(minBid)} MANA`);
     if (limit) {
       const battleAmount = ethers.parseEther(limit);
       if (minBid <= battleAmount) {
-        console.log(`Minimum bid is below bid limit`);
+        console.log(`Minimum bid is below bid limit ✅`);
         bid = minBid;
       } else {
-        console.log(`Minimum bid is above bid limit`);
+        console.log(`Minimum bid is above bid limit ❌`);
+        return;
       }
     }
-    console.log("Bid amount:", ethers.formatEther(bid));
+    console.log(`Bid amount: ${ethers.formatEther(bid)} MANA`);
     if (bid < minBid) {
       console.log(
-        `Bid is too low, minimum bid is ${ethers.formatEther(minBid)} MANA`
+        `Bid is too low, minimum bid is ${+ethers.formatEther(minBid)} MANA`
       );
     } else {
       const manaToken = await ethers.getContractAt("ERC20", token);
