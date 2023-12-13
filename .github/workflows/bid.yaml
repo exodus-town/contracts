@@ -2,7 +2,7 @@ name: bid
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    - cron: "*/10 * * * *"
 
 jobs:
   bid:
@@ -16,7 +16,7 @@ jobs:
       - name: Install
         run: npm ci
       - name: Bid
-        run: npm run bid
+        run: npm run bid -- -- --limit 100
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           ALCHEMY_KEY: ${{ secrets.ALCHEMY_KEY }}
