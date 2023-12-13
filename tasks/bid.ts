@@ -67,13 +67,19 @@ task("bid", "Makes a bid on the current auction")
         return;
       }
     }
-    console.log(`Bid amount: ${ethers.formatEther(bid)} MANA`);
+    console.log(`Bid amount: ${+ethers.formatEther(bid)} MANA`);
     if (bid < minBid) {
       console.log(
         `Bid is too low, minimum bid is ${+ethers.formatEther(minBid)} MANA`
       );
     } else {
       const manaToken = await ethers.getContractAt("ERC20", token);
+      const balance = await manaToken.balanceOf(sender);
+      if (balance < bid) {
+        console.log(
+          `Not enough balance: ${+ethers.formatEther(balance)} MANA ❌`
+        );
+      }
       let allowance = await manaToken.allowance(sender, address);
       console.log(`Allowance:`, ethers.formatEther(allowance));
       if (allowance > 0n && allowance < bid) {
