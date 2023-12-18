@@ -16,7 +16,7 @@
     "bid:mainnet": "hardhat compile && hardhat bid --network polygon --address 0x0Ff58e235b154dd7785C4829D48948CE114248C4 --token 0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4",
     "bid:testnet": "hardhat compile && hardhat bid --network mumbai --address 0x39eF9554d9014d31a5DC8aaDb98EA09896Ca62Af --token 0x882da5967c435ea5cc6b09150d55e8304b838f45",
     "bid": "npm run bid:mainnet",
-    "bot:mainnet": "hardhat compile && hardhat bot --network polygon --address 0x0Ff58e235b154dd7785C4829D48948CE114248C4 --token 0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD",
+    "bot:mainnet": "hardhat compile && hardhat bot --network polygon --address 0x0Ff58e235b154dd7785C4829D48948CE114248C4 --token 0xA1c57f48F0Deb89f569dFbE6E2B7f46D33606fD4",
     "bot:testnet": "hardhat compile && hardhat bot --network mumbai --address 0x39eF9554d9014d31a5DC8aaDb98EA09896Ca62Af --token 0x882da5967c435ea5cc6b09150d55e8304b838f45",
     "bot": "npm run bot:mainnet"
   },
