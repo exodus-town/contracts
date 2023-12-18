@@ -3,6 +3,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "./tasks/deploy";
 import "./tasks/restart";
 import "./tasks/bid";
+import "./tasks/bot";
 
 import dotenv from "dotenv";
 dotenv.config();
