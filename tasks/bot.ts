@@ -11,8 +11,12 @@ task("bot", "Keeps bidding for a certain amount of time")
   .addOptionalParam("limit", "The maximum amount of MANA to bid")
   .addOptionalParam("interval", "The interval in seconds to poll")
   .addOptionalParam("duration", "The total time the bot will be running")
+  .addOptionalParam("random", "Adds a random amount to the bid limit")
   .setAction(
-    async ({ address, token, amount, limit, interval, duration }, { run }) => {
+    async (
+      { address, token, amount, limit, interval, duration, random },
+      { run }
+    ) => {
       const INTERVAL = interval ? interval * 1000 : 30_000;
       const DURATION = duration ? duration * 1000 : null;
       console.log(`Polling interval: ${(INTERVAL / 1000) | 0} seconds`);
@@ -21,6 +25,17 @@ task("bot", "Keeps bidding for a certain amount of time")
       }
       let elapsed = 0;
       const startTime = Date.now();
+
+      if (random) {
+        if (limit) {
+          const randomExtra = (Math.random() * Number(random)) | 0;
+          console.log(`Adding random amount to bid limit: ${randomExtra}`);
+          limit = (Number(limit) + randomExtra).toString();
+        } else {
+          console.log(`You can't the random option without a limit`);
+        }
+      }
+
       while (!DURATION || elapsed < DURATION) {
         try {
           await run("bid", { address, token, amount, limit });
