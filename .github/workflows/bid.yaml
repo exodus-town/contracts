@@ -16,7 +16,7 @@ jobs:
       - name: Install
         run: npm ci
       - name: Bid
-        run: npm run bot -- -- --limit 100 --random 100 --duration 540
+        run: npm run bot -- -- --limit 50 --random 100 --duration 540
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           ALCHEMY_KEY: ${{ secrets.ALCHEMY_KEY }}
