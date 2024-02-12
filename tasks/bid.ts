@@ -79,6 +79,7 @@ task("bid", "Makes a bid on the current auction")
         console.log(
           `Not enough balance: ${+ethers.formatEther(balance)} MANA ❌`
         );
+        return;
       }
       let allowance = await manaToken.allowance(sender, address);
       console.log(`Allowance:`, ethers.formatEther(allowance));
