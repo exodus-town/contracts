@@ -47,3 +47,60 @@ This rite assembles the npm package, a tome containing both the arcane typings a
 - `TownToken` - [0xAE38E6d941Fb364c142CC90df285CEEF85713467](https://polygonscan.com/address/0xAE38E6d941Fb364c142CC90df285CEEF85713467)
 - `AuctionHouse` - [0x0Ff58e235b154dd7785C4829D48948CE114248C4](https://polygonscan.com/address/0x0Ff58e235b154dd7785C4829D48948CE114248C4)
 - `ExodusDAO` - [0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923](https://polygonscan.com/address/0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923)
+
+# Bot
+
+In the mystical lands of Exodus Town, where the digital air is thick with the spirit of competition, a conjuration known as The Bot can be summoned to partake on your behalf in the grand auction rituals. Should you wish to harness this automaton, follow the path laid out below:
+
+## Arcane Preparations
+
+Before embarking on this digital sorcery, ensure the presence of Git and NodeJS within your alchemical workspace. These are the foundational elements required to breathe life into The Bot. Should they be absent, you may summon them thusly:
+
+- Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for the scribing of codes.
+- Conjure [NodeJS](https://nodejs.org/en/download) to animate our digital familiar.
+
+## Summoning the Code
+
+With a terminal as your arcane circle, invoke the following incantations:
+
+```bash
+git clone https://github.com/exodus-town/contracts.git
+```
+
+This spell binds the essence of our repository to your domain. Proceed to enter its sanctum:
+
+```bash
+cd contracts
+```
+
+## Enchanting the Environment
+
+Within the sanctum, an `.env.example` scroll exists. Duplicate this scroll, renaming it to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Upon this new scroll, inscribe your `ALCHEMY_KEY` and `PRIVATE_KEY` with the sacred texts from [Alchemy API Key for Polygon](https://alchemy.com) and a newly forged Ethereum private key (imbue it with a sprinkle of MATIC for sustenance).
+
+## Gathering the Components
+
+With the command below, assemble the necessary artifacts and incantations:
+
+```bash
+npm install
+```
+
+## Awakening The Bot
+
+To awaken The Bot, chant the following, setting a `--limit` to restrain its bidding zeal, should you wish:
+
+```bash
+npm run bot -- -- --limit 100
+```
+
+(Ye must include those `-- --` as a bridge between realms)
+
+Every half-minute mark, The Bot shall peer into the auction's heart, wielding your will to outbid rivals, yet never crossing the threshold set by your `--limit` command.
+
+With this, The Bot is at your command, a digital familiar bound to your bidding in the ethereal auction halls of Exodus Town.
