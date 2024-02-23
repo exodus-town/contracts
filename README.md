@@ -48,18 +48,18 @@ This rite assembles the npm package, a tome containing both the arcane typings a
 - `AuctionHouse` - [0x0Ff58e235b154dd7785C4829D48948CE114248C4](https://polygonscan.com/address/0x0Ff58e235b154dd7785C4829D48948CE114248C4)
 - `ExodusDAO` - [0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923](https://polygonscan.com/address/0x7E96f5242D1256E56E15b46EB2Fa1b1152dF5923)
 
-# Bot
+## Bot
 
 In the mystical lands of Exodus Town, where the digital air is thick with the spirit of competition, a conjuration known as The Bot can be summoned to partake on your behalf in the grand auction rituals. Should you wish to harness this automaton, follow the path laid out below:
 
-## Arcane Preparations
+### Arcane Preparations
 
 Before embarking on this digital sorcery, ensure the presence of Git and NodeJS within your alchemical workspace. These are the foundational elements required to breathe life into The Bot. Should they be absent, you may summon them thusly:
 
 - Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for the scribing of codes.
 - Conjure [NodeJS](https://nodejs.org/en/download) to animate our digital familiar.
 
-## Summoning the Code
+### Summoning the Code
 
 With a terminal as your arcane circle, invoke the following incantations:
 
@@ -73,7 +73,7 @@ This spell binds the essence of our repository to your domain. Proceed to enter 
 cd contracts
 ```
 
-## Enchanting the Environment
+### Enchanting the Environment
 
 Within the sanctum, an `.env.example` scroll exists. Duplicate this scroll, renaming it to `.env`:
 
@@ -83,7 +83,7 @@ cp .env.example .env
 
 Upon this new scroll, inscribe your `ALCHEMY_KEY` and `PRIVATE_KEY` with the sacred texts from [Alchemy API Key for Polygon](https://alchemy.com) and a newly forged Ethereum private key (imbue it with a sprinkle of MATIC for sustenance).
 
-## Gathering the Components
+### Gathering the Components
 
 With the command below, assemble the necessary artifacts and incantations:
 
@@ -91,7 +91,7 @@ With the command below, assemble the necessary artifacts and incantations:
 npm install
 ```
 
-## Awakening The Bot
+### Awakening The Bot
 
 To awaken The Bot, chant the following, setting a `--limit` to restrain its bidding zeal, should you wish:
 
